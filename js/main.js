@@ -17,16 +17,29 @@ export default class Main {
     // 维护当前requestAnimationFrame的id
     this.aniId    = 0
 
+    this.hasEventBind = true
+    this.touchHandler = this.touchEventHandler.bind(this)
+    canvas.addEventListener('touchstart', this.touchHandler)
     this.restart()
+  }
+
+  pause() {
+    databus.gamePause = true
+  }
+
+  resume() {
+    databus.gamePause = false
+    this.update()
   }
 
   restart() {
     databus.reset()
 
-    canvas.removeEventListener(
-      'touchstart',
-      this.touchHandler
-    )
+    // canvas.removeEventListener(
+    //   'touchstart',
+    //   this.touchHandler
+    // )
+    
 
     this.bg       = new BackGround(ctx)
     this.player   = new Player(ctx)
@@ -95,17 +108,25 @@ export default class Main {
   // 游戏结束后的触摸事件处理逻辑
   touchEventHandler(e) {
      e.preventDefault()
-
     let x = e.touches[0].clientX
     let y = e.touches[0].clientY
-
-    let area = this.gameinfo.btnArea
-
-    if (   x >= area.startX
-        && x <= area.endX
-        && y >= area.startY
-        && y <= area.endY  )
-      this.restart()
+    let that = this
+    let element = this.gameinfo
+      element.onTouchEvent(e.type, x, y, ((res) => {
+        switch(res.message){
+          case "pause":
+            this.pause()
+            break
+          case "resume":
+            this.resume()
+            break
+          case "restart":
+            this.restart()
+            break
+        }
+    }).bind(this))
+      
+      
   }
 
   /**
@@ -137,17 +158,17 @@ export default class Main {
     if ( databus.gameOver ) {
       this.gameinfo.renderGameOver(ctx, databus.score)
 
-      if ( !this.hasEventBind ) {
-        this.hasEventBind = true
-        this.touchHandler = this.touchEventHandler.bind(this)
-        canvas.addEventListener('touchstart', this.touchHandler)
-      }
+      // if ( !this.hasEventBind ) {
+      //   this.hasEventBind = true
+      //   this.touchHandler = this.touchEventHandler.bind(this)
+      //   canvas.addEventListener('touchstart', this.touchHandler)
+      // }
     }
   }
 
   // 游戏逻辑更新主函数
   update() {
-    if ( databus.gameOver )
+    if ( databus.gameOver||databus.gamePause )
       return;
 
     this.bg.update()

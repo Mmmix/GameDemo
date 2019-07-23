@@ -33,19 +33,31 @@ export default class Sprite {
 
   /**
    * 简单的碰撞检测定义：
-   * 另一个精灵的中心点处于本精灵所在的矩形内即可
+   * 另一个精灵所在的矩形与本精灵所在的矩形重叠即可
    * @param{Sprite} sp: Sptite的实例
    */
   isCollideWith(sp) {
-    let spX = sp.x + sp.width / 2
-    let spY = sp.y + sp.height / 2
+    let spX1 = sp.x
+    let spY1 = sp.y
+    let spX2 = sp.x + sp.width
+    let spY2 = sp.y + sp.height
 
-    if ( !this.visible || !sp.visible )
+    if (!this.visible || !sp.visible)
       return false
 
-    return !!(   spX >= this.x
-              && spX <= this.x + this.width
-              && spY >= this.y
-              && spY <= this.y + this.height  )
+    return !!(
+      (
+        (spX1 >= this.x && spX1 <= this.x + this.width)
+        || (spX2 >= this.x && spX2 <= this.x + this.width)
+        || (spX1 >= this.x && spX2 <= this.x + this.width)
+        || (spX1 <= this.x && spX2 >= this.x + this.width)
+      )
+      && (
+        (spY1 >= this.y && spY1 <= this.y + this.height)
+        || (spY2 >= this.y && spY2 <= this.y + this.height)
+        || (spY1 >= this.y && spY2 <= this.y + this.height)
+        || (spY1 <= this.y && spY2 >= this.y + this.height)
+      )
+    )
   }
 }

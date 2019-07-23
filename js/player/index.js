@@ -1,6 +1,7 @@
 import Sprite   from '../base/sprite'
 import Bullet   from './bullet'
 import DataBus  from '../databus'
+import Config   from '../common/config'
 
 const screenWidth    = window.innerWidth
 const screenHeight   = window.innerHeight
@@ -113,14 +114,73 @@ export default class Player extends Sprite {
    * 射击时机由外部决定
    */
   shoot() {
-    let bullet = databus.pool.getItemByClass('bullet', Bullet)
+    switch(Config.BulletNum){
+      case 1:
+        let bullet = databus.pool.getItemByClass('bullet', Bullet)
 
-    bullet.init(
-      this.x + this.width / 2 - bullet.width / 2,
-      this.y - 10,
-      10
-    )
+        bullet.init(
+          this.x + this.width / 2 - bullet.width / 2,
+          this.y - 10,
+          Config.BulletSpeed,
+          0
+        )
+        databus.bullets.push(bullet)
+        break
+      case 2: 
+        let bullet1 = databus.pool.getItemByClass('bullet', Bullet)
+        let bullet2 = databus.pool.getItemByClass('bullet', Bullet)
 
-    databus.bullets.push(bullet)
+        bullet1.init(
+          this.x + this.width / 2 - bullet1.width / 2 - 20,
+          this.y - 10,
+          Config.BulletSpeed,
+          0
+        )
+        bullet2.init(
+          this.x + this.width / 2 - bullet2.width / 2 + 20,
+          this.y - 10,
+          Config.BulletSpeed,
+          0
+        )
+        databus.bullets.push(bullet1,bullet2)
+        break
+      case 3:
+        let bullet3 = databus.pool.getItemByClass('bullet', Bullet)
+        let bullet4 = databus.pool.getItemByClass('bullet', Bullet)
+        let bullet5 = databus.pool.getItemByClass('bullet', Bullet)
+
+        bullet3.init(
+          this.x + this.width / 2 - bullet3.width / 2 - 20,
+          this.y - 10,
+          Config.BulletSpeed,
+          -1
+        )
+        bullet4.init(
+          this.x + this.width / 2 - bullet4.width / 2 + 20,
+          this.y - 10,
+          Config.BulletSpeed,
+          1
+        )
+        bullet5.init(
+          this.x + this.width / 2 - bullet5.width / 2,
+          this.y - 10,
+          Config.BulletSpeed,
+          0
+        )
+        databus.bullets.push(bullet3, bullet4, bullet5)
+        break
+
+
+    }
+
+    // let bullet = databus.pool.getItemByClass('bullet', Bullet)
+
+    // bullet.init(
+    //   this.x + this.width / 2 - bullet.width / 2,
+    //   this.y - 10,
+    //   Config.BulletSpeed
+    // )
+
+    // databus.bullets.push(bullet)
   }
 }

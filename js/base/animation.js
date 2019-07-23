@@ -1,5 +1,6 @@
 import Sprite  from './sprite'
 import DataBus from '../databus'
+import Config  from '../common/config'
 
 let databus = new DataBus()
 
@@ -21,7 +22,7 @@ export default class Animation extends Sprite {
     this.loop = false
 
     // 每一帧的时间间隔
-    this.interval = 1000 / 60
+    this.interval = 1000 / Config.UpdateRate
 
     // 帧定时器
     this[__.timer] = null

@@ -4,6 +4,7 @@ import BackGround from './runtime/background'
 import GameInfo   from './runtime/gameinfo'
 import Music      from './runtime/music'
 import DataBus    from './databus'
+import Config     from './common/config'
 
 let ctx   = canvas.getContext('2d')
 let databus = new DataBus()
@@ -49,7 +50,7 @@ export default class Main {
    * 帧数取模定义成生成的频率
    */
   enemyGenerate() {
-    if ( databus.frame % 30 === 0 ) {
+    if ( databus.frame % Config.EnemyRate === 0 ) {
       let enemy = databus.pool.getItemByClass('enemy', Enemy)
       enemy.init(6)
       databus.enemys.push(enemy)
@@ -70,6 +71,10 @@ export default class Main {
 
           bullet.visible = false
           databus.score  += 1
+          if (databus.score % 10 == 0 && Config.EnemyRate>10){
+
+            Config.EnemyRate -= 10
+          }
 
           break
         }
@@ -157,7 +162,7 @@ export default class Main {
 
     this.collisionDetection()
 
-    if ( databus.frame % 20 === 0 ) {
+    if (databus.frame % Config.ShootSpeed === 0 ) {
       this.player.shoot()
       this.music.playShoot()
     }

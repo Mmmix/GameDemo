@@ -52,13 +52,15 @@ export default class Main {
   }
 
   discountLink(res){
+    let that = this
     console.log(wx)
     console.log(wx.getSystemInfoSync())
     wx.navigateToMiniProgram({
       appId: 'wx91d27dbf599dff74',
-      // url:"www.baidu.com",
+      path: 'pages/item_wqvue/detail/detail?sku=37681995738',
       success(res) {
         // 打开成功
+        that.resume()
       }
     })
   }

@@ -1,3 +1,4 @@
 {
-    "deviceOrientation": "portrait"
+    "deviceOrientation": "portrait",
+    "navigateToMiniProgramAppIdList": ["wx91d27dbf599dff74"]
 }

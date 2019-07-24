@@ -84,10 +84,11 @@ export default class Main {
 
           bullet.visible = false
           databus.score  += 1
-          if (databus.score % 10 == 0 && Config.EnemyRate>10){
+          // 随分数增加难度
+          // if (databus.score % 10 == 0 && Config.EnemyRate>10){
 
-            Config.EnemyRate -= 10
-          }
+          //   Config.EnemyRate -= 10
+          // }
 
           break
         }
@@ -123,6 +124,9 @@ export default class Main {
           case "restart":
             this.restart()
             break
+          default:
+            console.log(res.message)
+            break
         }
     }).bind(this))
       
@@ -156,7 +160,9 @@ export default class Main {
 
     // 游戏结束停止帧循环
     if ( databus.gameOver ) {
+      //TEMP
       this.gameinfo.renderGameOver(ctx, databus.score)
+      // this.restart()
 
       // if ( !this.hasEventBind ) {
       //   this.hasEventBind = true

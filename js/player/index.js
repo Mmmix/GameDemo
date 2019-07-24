@@ -163,7 +163,7 @@ export default class Player extends Sprite {
         )
         bullet5.init(
           this.x + this.width / 2 - bullet5.width / 2,
-          this.y - 10,
+          this.y - 30,
           Config.BulletSpeed,
           0
         )

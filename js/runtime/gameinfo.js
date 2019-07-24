@@ -1,3 +1,5 @@
+import DataBus from  '../databus'
+
 const screenWidth  = window.innerWidth
 const screenHeight = window.innerHeight
 const SettingCommands = {
@@ -29,6 +31,8 @@ export default class GameInfo {
   }
 
   onTouchEvent(type, x, y, callback) {
+    let databus = new DataBus()
+    console.log(databus)
     // let area = this.areaSetting
     if (x >= this.areaSetting.startX
       && x <= this.areaSetting.endX
@@ -51,11 +55,12 @@ export default class GameInfo {
           callback({message: 'resume'})
         }
       })
-    } else if (x >= this.btnArea.startX
+    } 
+    else if (databus.gameOver&& x >= this.btnArea.startX
       && x <= this.btnArea.endX
       && y >= this.btnArea.startY
       && y <= this.btnArea.endY) {
-        callback({message: 'restart'})
+      callback({ message: 'restart' })
       //...
     }
   }

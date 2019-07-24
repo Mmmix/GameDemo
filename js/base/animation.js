@@ -69,20 +69,20 @@ export default class Animation extends Sprite {
     )
   }
 
-  // 播放预定的帧动画
-  playAnimation(index = 0, loop = false) {
+  // 播放预定的帧动画 开始动画，是否循环，帧数，是否不显示
+  playAnimation(index = 0, loop = false, interval = 1000/Config.UpdateRate,visible=false) {
     // 动画播放的时候精灵图不再展示，播放帧动画的具体帧
-    this.visible   = false
+    this.visible   = visible
 
     this.isPlaying = true
     this.loop      = loop
 
     this.index     = index
 
-    if ( this.interval > 0 && this.count ) {
+    if ( interval > 0 && this.count ) {
       this[__.timer] = setInterval(
         this.frameLoop.bind(this),
-        this.interval
+        interval
       )
     }
   }

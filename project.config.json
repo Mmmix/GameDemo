@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "game",
-	"libVersion": "1.9.94",
+	"libVersion": "2.7.7",
 	"appid": "wx0aa242ab52869f4e",
 	"projectname": "GameDemo",
 	"simulatorType": "wechat",

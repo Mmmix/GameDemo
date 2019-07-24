@@ -7,7 +7,7 @@ let instance
  */
 export default class DataBus {
   constructor() {
-    if ( instance )
+    if (instance)
       return instance
 
     instance = this
@@ -18,13 +18,15 @@ export default class DataBus {
   }
 
   reset() {
-    this.frame      = 0
-    this.score      = 0
-    this.bullets    = []
-    this.enemys     = []
+    this.frame = 0
+    this.score = 0
+    this.bullets = []
+    this.enemys = []
+    this.discounts = []
     this.animations = []
-    this.gameOver   = false
-    this.gamePause  = false
+    this.gameOver = false
+    this.gamePause = false
+    this.getDiscount = false
   }
 
   /**
@@ -49,9 +51,24 @@ export default class DataBus {
     //let temp = this.bullets.shift()
     let temp = (bullet === undefined) ?
       this.bullets.shift() : this.bullets.splice(this.bullets.indexOf(bullet), 1)
-    
+
     temp.visible = false
 
     this.pool.recover('bullet', bullet)
+  }
+
+  /**
+   * 回收打折券，进入对象池
+   * 此后不进入帧循环
+   */
+  removeDiscount(discount) {
+    // let temp = this.discount.shift()
+    console.log(discount)
+    let temp = (discount === undefined) ?
+      this.discounts.shift() : this.discounts.splice(this.discounts.indexOf(discount), 1)
+
+    temp.visible = false
+
+    this.pool.recover('discount', discount)
   }
 }

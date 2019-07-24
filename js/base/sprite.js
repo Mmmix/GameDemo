@@ -47,15 +47,15 @@ export default class Sprite {
 
     return !!(
       (
-        (spX1 >= this.x && spX1 <= this.x + this.width)
-        || (spX2 >= this.x && spX2 <= this.x + this.width)
-        || (spX1 >= this.x && spX2 <= this.x + this.width)
+        (spX1 >= this.x +5 && spX1 <= this.x + this.width -5 )
+        || (spX2 >= this.x +5 && spX2 <= this.x + this.width -5)
+        || (spX1 >= this.x +5 && spX2 <= this.x + this.width - 5)
         || (spX1 <= this.x && spX2 >= this.x + this.width)
       )
       && (
-        (spY1 >= this.y && spY1 <= this.y + this.height)
-        || (spY2 >= this.y && spY2 <= this.y + this.height)
-        || (spY1 >= this.y && spY2 <= this.y + this.height)
+        (spY1 >= this.y +5 && spY1 <= this.y + this.height - 5)
+        || (spY2 >= this.y + 5 && spY2 <= this.y + this.height - 5)
+        || (spY1 >= this.y + 5 && spY2 <= this.y + this.height - 5)
         || (spY1 <= this.y && spY2 >= this.y + this.height)
       )
     )

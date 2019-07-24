@@ -124,6 +124,7 @@ export default class Player extends Sprite {
           Config.BulletSpeed,
           0
         )
+        console.log(bullet)
         databus.bullets.push(bullet)
         break
       case 2: 

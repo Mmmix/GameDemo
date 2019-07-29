@@ -63,7 +63,6 @@ export default class DataBus {
    */
   removeDiscount(discount) {
     // let temp = this.discount.shift()
-    console.log(discount)
     let temp = (discount === undefined) ?
       this.discounts.shift() : this.discounts.splice(this.discounts.indexOf(discount), 1)
 

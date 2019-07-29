@@ -34,32 +34,38 @@ export default class Main {
   switchLevel(res) {
     let index = res.option.indexOf(Config.EnemyRate)
     Config.EnemyRate = res.option[(index + 1) % res.option.length]
-    // console.log(Config.EnemyRate)
   }
 
   switchFire(res) {
     let index = res.option.indexOf(Config.ShootSpeed)
     Config.ShootSpeed = res.option[(index + 1) % res.option.length]
     Config.BulletSpeed = (index+1) * 10
-    // console.log(Config.ShootSpeed)
   }
 
   legendary(res) {
     let index = res.option.indexOf(Config.legendary)
     Config.legendary = res.option[(index + 1) % res.option.length]
-    // console.log(Config.legendary)
 
   }
 
   discountLink(res){
     let that = this
-    console.log(wx)
-    console.log(wx.getSystemInfoSync())
     wx.navigateToMiniProgram({
       appId: 'wx91d27dbf599dff74',
       path: 'pages/item_wqvue/detail/detail?sku=37681995738',
       success(res) {
         // 打开成功
+        // wx.showToast({
+        //   title: '',
+        // })
+      },
+      fail(res){
+        wx.showToast({
+          title: '残忍拒绝了',
+          icon: 'none'
+        })
+      },
+      complete(res){
         that.resume()
       }
     })
@@ -78,12 +84,6 @@ export default class Main {
   restart() {
     isDiscountShow=false
     databus.reset()
-
-    // canvas.removeEventListener(
-    //   'touchstart',
-    //   this.touchHandler
-    // )
-
 
     this.bg = new BackGround(ctx)
     this.player = new Player(ctx)
@@ -125,7 +125,7 @@ export default class Main {
       discount.init(1)
       databus.discounts.push(discount)
       this.isDiscountShow = true
-      discount.playAnimation(0,true,1000/18,true)
+      discount.playAnimation(0, true, 1000 / 18, true)  //IMPROVE
     }
   }
 
@@ -176,8 +176,7 @@ export default class Main {
         discount.stop()
         databus.removeDiscount(discount)
         this.pause()
-        this.gameinfo.gameOver = true
-        this.gameinfo.renderDiscount(ctx)
+        this.gameinfo.gamePause = true
 
         break
       }
@@ -218,7 +217,6 @@ export default class Main {
           this.discountLink(res)
           break
         default:
-          console.log(res)
           break
       }
     }).bind(this))
@@ -231,10 +229,6 @@ export default class Main {
    * 每一帧重新绘制所有的需要展示的元素
    */
   render() {
-    if (databus.gamePause)
-      return
-
-    // console.log("render")
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -262,22 +256,16 @@ export default class Main {
 
     this.gameinfo.renderGameScore(ctx, databus.score)
 
+    if(databus.getDiscount){
+
+      this.gameinfo.renderDiscount(ctx)
+    }
+
     // 游戏结束停止帧循环
     if (databus.gameOver) {
       this.gameinfo.renderGameOver(ctx, databus.score)
 
-      // if ( !this.hasEventBind ) {
-      //   this.hasEventBind = true
-      //   this.touchHandler = this.touchEventHandler.bind(this)
-      //   canvas.addEventListener('touchstart', this.touchHandler)
-      // }
     }
-    //temp
-    // if (databus.score == 10) {
-    //   this.pause()
-    //   this.gameinfo.gameOver = true
-    //   this.gameinfo.renderDiscount(ctx)
-    // }
   }
 
   // 游戏逻辑更新主函数

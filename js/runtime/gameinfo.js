@@ -16,6 +16,9 @@ const SettingCommands = {
 let atlas = new Image()
 atlas.src = 'images/Common.png'
 
+let img = new Image()
+img.src = 'images/pfu.png'
+
 export default class GameInfo {
   renderGameScore(ctx, score) {
     ctx.fillStyle = "#ffffff"
@@ -94,9 +97,7 @@ export default class GameInfo {
   }
 
   renderDiscount(ctx) {
-    let img = new Image()
-    img.src = 'images/pfu.png'
-    ctx.drawImage(img, screenWidth / 2 - 150, screenHeight / 2 - 100, 300, 300)
+    ctx.drawImage(img,0,0,149,149, screenWidth / 2 - 140, screenHeight / 2 - 100, 280, 280)
 
     ctx.fillStyle = "#ffffff"
     ctx.font = "20px Arial"

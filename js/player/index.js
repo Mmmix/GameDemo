@@ -78,6 +78,9 @@ export default class Player extends Sprite {
   initEvent() {
     canvas.addEventListener('touchstart', ((e) => {
       e.preventDefault()
+      if(databus.gameOver||databus.gamePause){
+        return 
+      }
 
       let x = e.touches[0].clientX
       let y = e.touches[0].clientY
@@ -93,7 +96,10 @@ export default class Player extends Sprite {
 
     canvas.addEventListener('touchmove', ((e) => {
       e.preventDefault()
-
+      if (databus.gameOver || databus.gamePause) {
+        return
+      }
+      
       let x = e.touches[0].clientX
       let y = e.touches[0].clientY
 
@@ -172,15 +178,5 @@ export default class Player extends Sprite {
 
 
     }
-
-    // let bullet = databus.pool.getItemByClass('bullet', Bullet)
-
-    // bullet.init(
-    //   this.x + this.width / 2 - bullet.width / 2,
-    //   this.y - 10,
-    //   Config.BulletSpeed
-    // )
-
-    // databus.bullets.push(bullet)
   }
 }

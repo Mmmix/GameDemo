@@ -39,7 +39,7 @@ export default class Main {
   switchFire(res) {
     let index = res.option.indexOf(Config.ShootSpeed)
     Config.ShootSpeed = res.option[(index + 1) % res.option.length]
-    Config.BulletSpeed = (index+1) * 10
+    Config.BulletSpeed = (index + 1) * 10
   }
 
   legendary(res) {
@@ -48,7 +48,7 @@ export default class Main {
 
   }
 
-  discountLink(res){
+  discountLink(res) {
     let that = this
     wx.navigateToMiniProgram({
       appId: 'wx91d27dbf599dff74',
@@ -59,13 +59,13 @@ export default class Main {
         //   title: '',
         // })
       },
-      fail(res){
+      fail(res) {
         wx.showToast({
           title: '残忍拒绝了',
           icon: 'none'
         })
       },
-      complete(res){
+      complete(res) {
         that.resume()
       }
     })
@@ -82,7 +82,7 @@ export default class Main {
   }
 
   restart() {
-    isDiscountShow=false
+    isDiscountShow = false
     databus.reset()
 
     this.bg = new BackGround(ctx)
@@ -120,12 +120,12 @@ export default class Main {
    */
   discountGenerate() {
     // if (!this.isDiscountShow && databus.score === Config.DiscountShowScore) {
-    if (databus.score % Config.DiscountShowScore===0) {
+    if (databus.score % Config.DiscountShowScore === 0) {
       let discount = databus.pool.getItemByClass('discount', Discount)
       discount.init(1)
       databus.discounts.push(discount)
       this.isDiscountShow = true
-      discount.playAnimation(0, true, 1000 / 18, true)  //IMPROVE
+      discount.playAnimation(0, true, 1000 / 18, true)
     }
   }
 
@@ -167,10 +167,10 @@ export default class Main {
       }
     }
 
-    for (let i = 0, il = databus.discounts.length; i < il;i++) {
+    for (let i = 0, il = databus.discounts.length; i < il; i++) {
       let discount = databus.discounts[i]
 
-      if (this.player.isCollideWith(discount) ) {
+      if (this.player.isCollideWith(discount)) {
         databus.getDiscount = true
         discount.visible = false
         discount.stop()
@@ -244,7 +244,7 @@ export default class Main {
 
     this.player.drawToCanvas(ctx)
 
-    databus.discounts.forEach((discount)=>{
+    databus.discounts.forEach((discount) => {
       discount.aniRender(ctx)
     })
 
@@ -256,7 +256,7 @@ export default class Main {
 
     this.gameinfo.renderGameScore(ctx, databus.score)
 
-    if(databus.getDiscount){
+    if (databus.getDiscount) {
 
       this.gameinfo.renderDiscount(ctx)
     }
@@ -296,7 +296,7 @@ export default class Main {
   loop() {
     databus.frame++
 
-      this.update()
+    this.update()
     this.render()
 
     this.aniId = window.requestAnimationFrame(

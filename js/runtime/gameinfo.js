@@ -8,7 +8,7 @@ const SettingCommands = {
   optionList: [
     [30, 20, 10],
     [1, 2, 3],
-    [30, 20, 10, 5],
+    [30, 20, 10],
     [true, false]
   ]
 }

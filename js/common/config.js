@@ -7,4 +7,4 @@ Config.ShootSpeed = 30
 Config.BulletNum = 1
 Config.EnemyRate = 30
 Config.legendary = false
-Config.DiscountShowScore = 10
+Config.DiscountShowScore = 50

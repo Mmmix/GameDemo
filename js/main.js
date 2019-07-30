@@ -39,7 +39,7 @@ export default class Main {
   switchFire(res) {
     let index = res.option.indexOf(Config.ShootSpeed)
     Config.ShootSpeed = res.option[(index + 1) % res.option.length]
-    Config.BulletSpeed = (index + 1) * 10
+    Config.BulletSpeed = 10 + ((index + 1) % res.option.length) * 5
   }
 
   legendary(res) {
@@ -229,6 +229,7 @@ export default class Main {
    * 每一帧重新绘制所有的需要展示的元素
    */
   render() {
+    this.music.playBgm()
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -296,7 +297,7 @@ export default class Main {
   loop() {
     databus.frame++
 
-    this.update()
+      this.update()
     this.render()
 
     this.aniId = window.requestAnimationFrame(
